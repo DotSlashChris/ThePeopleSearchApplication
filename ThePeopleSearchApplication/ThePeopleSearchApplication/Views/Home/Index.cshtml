@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>People Search Application</h1>
+	<p class="lead">By Chris Johnston</p>
+    <p>This project is a technical demonstration for the HealthCatalyst interview process.</p>
+	<p></p>
+	<p></p>
+	<p>Please Input First or Last Name Here: <input type="text" name="keyword" /></p>
+	<div class="row">
+		<div class="col-md-6">
+			<h2>Search for a person quickly</h2>
+			<p>This will run the normal search.</p>
+			<p><a>
+				@Ajax.ActionLink(
+					linkText: "Search »",
+					actionName: "PersonSearch",
+					controllerName: "Person",
+					routeValues: new object(),
+					ajaxOptions: new AjaxOptions
+					{
+						UpdateTargetId = "ajaxtarget",
+						InsertionMode = InsertionMode.InsertAfter
+					},
+					htmlAttributes: new { @class = "btn btn-default" })
+			</a></p>
+
+			<div id="ajaxtarget"></div>
+		</div>
+		<div class="col-md-6">
+			<h2>Or search for a person slowly</h2>
+			<p>This will run a simulated slow search.</p>
+			<p><a class="btn btn-default" onclick="SearchPerson(true)" href="http://go.microsoft.com/fwlink/?LinkId=301866">Search &raquo;</a></p>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+    <div class="col-md-1">
+        <h2>Results</h2>
+        @*<p>This will run the normal search.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Search &raquo;</a></p>*@
+    </div>
+</div>
