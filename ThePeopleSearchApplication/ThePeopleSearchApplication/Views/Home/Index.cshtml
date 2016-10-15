@@ -2,13 +2,36 @@
     ViewBag.Title = "Home Page";
 }
 
+<script>
+	// Clear the search results
+	function clearResults() {
+		$('#SearchResults').empty();
+	}
+
+	// Set both href's when the input changes
+	function setKeywordInput() {
+		$('#NormalSearchButton').attr('href', function () {
+			var href = String(this.href);
+			var startIndex = href.indexOf('?keyword=') + 9;
+			var endIndex = href.indexOf('&');
+			href = href.slice(0, startIndex) + $('#Keyword').val() + href.slice(endIndex);
+			return this.href = href;
+		});
+		$('#SlowSearchButton').attr('href', function () {
+			var href = String(this.href);
+			var startIndex = href.indexOf('?keyword=') + 9;
+			var endIndex = href.indexOf('&');
+			href = href.slice(0, startIndex) + $('#Keyword').val() + href.slice(endIndex);
+			return this.href = href;
+		});
+	}
+</script>
 <div class="jumbotron">
     <h1>People Search Application</h1>
 	<p class="lead">By Chris Johnston</p>
-    <p>This project is a technical demonstration for the HealthCatalyst interview process.</p>
 	<p></p>
 	<p></p>
-	<p>Please Input First or Last Name Here: <input type="text" name="keyword" /></p>
+	<p>Please Input First or Last Name Here: <input type="text" id="Keyword" name="Keyword" onblur="setKeywordInput()"/></p>
 	<div class="row">
 		<div class="col-md-6">
 			<h2>Search for a person quickly</h2>
@@ -18,29 +41,47 @@
 					linkText: "Search »",
 					actionName: "PersonSearch",
 					controllerName: "Person",
-					routeValues: new object(),
+					routeValues: new { keyword = "__keywordInput__", simulateSlow = false },
 					ajaxOptions: new AjaxOptions
 					{
-						UpdateTargetId = "ajaxtarget",
-						InsertionMode = InsertionMode.InsertAfter
+						OnBegin = "clearResults",
+						LoadingElementId = "LoadingDiv",
+						UpdateTargetId = "SearchResults",
+						InsertionMode = InsertionMode.Replace
 					},
-					htmlAttributes: new { @class = "btn btn-default" })
+					htmlAttributes: new { @class = "btn btn-default", id = "NormalSearchButton" })
 			</a></p>
-
-			<div id="ajaxtarget"></div>
 		</div>
 		<div class="col-md-6">
 			<h2>Or search for a person slowly</h2>
 			<p>This will run a simulated slow search.</p>
-			<p><a class="btn btn-default" onclick="SearchPerson(true)" href="http://go.microsoft.com/fwlink/?LinkId=301866">Search &raquo;</a></p>
+			<p><a>
+				@Ajax.ActionLink(
+					linkText: "Search »",
+					actionName: "PersonSearch",
+					controllerName: "Person",
+					routeValues: new { keyword = "__keywordInput__", simulateSlow = true },
+					ajaxOptions: new AjaxOptions
+					{
+						OnBegin = "clearResults",
+						LoadingElementId = "LoadingDiv",
+						UpdateTargetId = "SearchResults",
+						InsertionMode = InsertionMode.Replace
+					},
+					htmlAttributes: new { @class = "btn btn-default", id = "SlowSearchButton" })
+			</a></p>
 		</div>
 	</div>
 </div>
 
 <div class="row">
-    <div class="col-md-1">
-        <h2>Results</h2>
-        @*<p>This will run the normal search.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Search &raquo;</a></p>*@
+    <div class="col-md-12">
+		<p>
+			<div class="text-center" id="LoadingDiv" name="LoadingDiv" style="z-index:1234; display:none;">
+				<img src="@Url.Content("~/Content/Images/Loading.gif")" alt="Loading..." class="ajax-loader" />
+				<h3>Searching...</h3>
+			</div>
+			<div id="SearchResults" name="SearchResults"></div>
+		</p>
     </div>
 </div>

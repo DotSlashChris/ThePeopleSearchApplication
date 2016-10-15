@@ -26,7 +26,7 @@ namespace ThePeopleSearchApplication.Models
 		{
 			get
 			{
-				return this.FirstName + " " + this.MiddleName + " " + this.LastName;
+				return (this.FirstName + " " + this.MiddleName + " " + this.LastName).Replace("  ", " ");
 			}
 		}
 
@@ -34,7 +34,7 @@ namespace ThePeopleSearchApplication.Models
 		{
 			get
 			{
-				return this.FirstName + " " + this.LastName;
+				return (this.FirstName + " " + this.LastName).Trim();
 			}
 		}
 

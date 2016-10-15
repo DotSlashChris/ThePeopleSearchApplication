@@ -15,14 +15,30 @@ namespace ThePeopleSearchApplication.Controllers
     {
         private PeopleSearchContext db = new PeopleSearchContext();
 
-		// Find a list of person 
-		public string PersonSearch(string keyword)
+		public PartialViewResult PersonSearch(string keyword, bool simulateSlow = false)
 		{
-			return "SEARCH TEST";
+			// Simulate a slow search.
+			if (simulateSlow == true)
+			{
+				System.Threading.Thread.Sleep(5000); // Sleep for 5 seconds.
+			}
+
+			// Retrieve results from database if there is valid input. Otherwise just return an empty result set.
+			List<Person> model = new List<Person>();
+			if (keyword != string.Empty && keyword != "__keywordInput__")
+			{
+				model = new List<Person>();
+				//db.Database.ExecuteSqlCommand()
+
+				PartialViewResult result = PartialView(viewName: "PersonResultsPartialView", model: model);
+			}
+
+			// Return results.
+			return PartialView(viewName: "PersonResultsPartialView", model: model);
 		}
 
-        // GET: Person
-        public ActionResult Index()
+		// GET: Person
+		public ActionResult Index()
         {
             return View(db.Persons.ToList());
         }
