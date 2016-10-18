@@ -27,6 +27,7 @@ namespace ThePeopleSearchApplication.DataAccessLayer
 					},
 					PictureURL = "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/000/0a1/211/2f5f6df.jpg",
 					Interests = "Health Catalyst, Software, Technology, Weight Lifting, Mobile Phones, Hiking, Skiing, Snowboarding, Movies, Comic Books, Bowling, Pocket Billiards, Italy, Video Games, VR",
+					BirthDate = "1982-02-03",
 				},
 				new Person
 				{
@@ -44,6 +45,7 @@ namespace ThePeopleSearchApplication.DataAccessLayer
 					},
 					PictureURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/C_Reeve_in_Marriage_of_Figaro_Opening_night_1985.jpg/220px-C_Reeve_in_Marriage_of_Figaro_Opening_night_1985.jpg",
 					Interests = "Acting, directing, producing, screenwriting, writing, activism",
+					BirthDate = "1952-09-25",
 				},
 				new Person
 				{
@@ -60,6 +62,7 @@ namespace ThePeopleSearchApplication.DataAccessLayer
 					},
 					PictureURL = "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/000/262/03e/122fd8d.jpg",
 					Interests = "Health Catalyst, Software, Technology, Best People, Company Growth",
+					BirthDate = "1995-01-01",
 				},
 				new Person
 				{
@@ -76,6 +79,7 @@ namespace ThePeopleSearchApplication.DataAccessLayer
 					},
 					PictureURL = "https://media.licdn.com/media/p/2/000/01e/3c5/19b56c4.jpg",
 					Interests = "Health Catalyst, Software, Technology, Best People, Company Growth",
+					BirthDate = "1995-01-01",
 				},
 				new Person
 				{
@@ -108,6 +112,7 @@ namespace ThePeopleSearchApplication.DataAccessLayer
 					},
 					PictureURL = "https://media.licdn.com/media/AAEAAQAAAAAAAAT0AAAAJDk5NDhiYTMzLTZhOTMtNDE4ZC04NjI1LWUxNmEwNDE5MTc0Nw.jpg",
 					Interests = "Health Catalyst, Software, Technology, Best People, Recruiting, Getting Chris Johnston On Board",
+					BirthDate = "1995-01-01",
 			}
 			};
 

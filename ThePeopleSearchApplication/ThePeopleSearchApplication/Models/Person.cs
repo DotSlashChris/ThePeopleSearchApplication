@@ -15,8 +15,10 @@ namespace ThePeopleSearchApplication.Models
 		public string MiddleName { get; set; }
 		public string LastName { get; set; }
 		public virtual Address Address { get; set; } // Virtual to take advantage of Entity Framework functionality like lazy loading.
-		public string PictureURL { get; set; } 	//<img src="/Content/Images/mylogo.png" /> //TODO:
+		public string PictureURL { get; set; }
 		public string Interests { get; set; }
+		public string BirthDate { get; set; }
+		public string Age { get { return toAgeString(); } }
 
 		#endregion Properties
 
@@ -66,5 +68,27 @@ namespace ThePeopleSearchApplication.Models
 		}
 
 		#endregion Methods
+
+		#region Functions
+
+		private string toAgeString()
+		{
+			string ageString = "Unknown";
+			DateTime birthDate;
+            DateTime.TryParse(this.BirthDate, out birthDate);
+			if (birthDate != DateTime.MinValue)
+			{
+				DateTime today = DateTime.Today;
+				int age = today.Year - birthDate.Year;
+				if (birthDate > today.AddYears(-age))
+				{
+					age--; // Correction for days
+				}
+				ageString = age.ToString();
+			}
+			return ageString;
+        }
+
+		#endregion Functions
 	}
 }

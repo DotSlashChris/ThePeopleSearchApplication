@@ -102,7 +102,7 @@ namespace ThePeopleSearchApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonID,FirstName,MiddleName,LastName,PictureURL,Interests")] Person person)
+        public ActionResult Edit([Bind(Include = "PersonID,FirstName,MiddleName,LastName,PictureURL,Interests,BirthDate")] Person person)
         {
             if (ModelState.IsValid)
             {
