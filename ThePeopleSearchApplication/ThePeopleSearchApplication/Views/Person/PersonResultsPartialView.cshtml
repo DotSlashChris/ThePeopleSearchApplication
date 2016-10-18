@@ -5,41 +5,45 @@
 	<h2>Results</h2>
 	<table class="table">
 		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.FirstName)
+			<th width="15%">
+				Name
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.MiddleName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.LastName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.PictureURL)
+				Picture
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.Interests)
 			</th>
-			<th></th>
+			<th width="150px">
+
+			</th>
 		</tr>
 
 		@foreach (var item in Model)
 		{
 			<tr>
 				<td>
-					@Html.DisplayFor(modelItem => item.FirstName)
+					@Html.DisplayFor(modelItem => item.ShortName)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.MiddleName)
+					@if (string.IsNullOrEmpty(item.PictureURL))
+					{
+						<img src="~/Content/Images/PictureUnavailable.jpg" width="50" alt="Profile Picture" />
+					}
+					else
+					{
+						<img src="@Html.DisplayFor(modelItem => item.PictureURL)" width="50" alt="Profile Picture"/>
+					}
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.LastName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.PictureURL)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Interests)
+					@if (string.IsNullOrEmpty(item.Interests))
+					{
+						<text>None.</text>
+					}
+					else
+					{
+						@Html.DisplayFor(modelItem => item.Interests)<text>.</text>
+					}
 				</td>
 				<td>
 					@Html.ActionLink("Edit", "Edit", new { id = item.PersonID }) |
@@ -53,5 +57,5 @@
 else
 {
 	<h1>Results</h1>
-	<h2>Sorry, no people with matching names were found...</h2>
+	<h4>Sorry, no people with a matching first or last name were found...</h4>
 }

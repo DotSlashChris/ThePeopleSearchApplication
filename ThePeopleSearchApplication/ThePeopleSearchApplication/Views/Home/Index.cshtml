@@ -14,16 +14,20 @@
 			var href = String(this.href);
 			var startIndex = href.indexOf('?keyword=') + 9;
 			var endIndex = href.indexOf('&');
-			href = href.slice(0, startIndex) + $('#Keyword').val() + href.slice(endIndex);
+			href = href.slice(0, startIndex) + $('#Keyword').val().trim() + href.slice(endIndex);
 			return this.href = href;
 		});
 		$('#SlowSearchButton').attr('href', function () {
 			var href = String(this.href);
 			var startIndex = href.indexOf('?keyword=') + 9;
 			var endIndex = href.indexOf('&');
-			href = href.slice(0, startIndex) + $('#Keyword').val() + href.slice(endIndex);
+			href = href.slice(0, startIndex) + $('#Keyword').val().trim() + href.slice(endIndex);
 			return this.href = href;
 		});
+	}
+
+	window.onload = function () {
+		setKeywordInput();
 	}
 </script>
 <div class="jumbotron">
@@ -31,7 +35,7 @@
 	<p class="lead">By Chris Johnston</p>
 	<p></p>
 	<p></p>
-	<p>Please Input First or Last Name Here: <input type="text" id="Keyword" name="Keyword" onblur="setKeywordInput()"/></p>
+	<p>Search by first or last name: <input type="text" id="Keyword" name="Keyword" onblur="setKeywordInput()"/></p>
 	<div class="row">
 		<div class="col-md-6">
 			<h2>Search for a person quickly</h2>

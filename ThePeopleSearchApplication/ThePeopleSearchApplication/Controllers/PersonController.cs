@@ -28,7 +28,8 @@ namespace ThePeopleSearchApplication.Controllers
 			if (keyword != string.Empty && keyword != "__keywordInput__")
 			{
 				model = new List<Person>();
-				//db.Database.ExecuteSqlCommand()
+				var linqQuery = db.Persons.Where(p => p.FirstName.Contains(keyword) || p.LastName.Contains(keyword));
+				model = linqQuery.ToList();
 
 				PartialViewResult result = PartialView(viewName: "PersonResultsPartialView", model: model);
 			}
@@ -75,7 +76,7 @@ namespace ThePeopleSearchApplication.Controllers
             {
                 db.Persons.Add(person);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = person.PersonID });
             }
 
             return View(person);
@@ -107,7 +108,7 @@ namespace ThePeopleSearchApplication.Controllers
             {
                 db.Entry(person).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = person.PersonID });
             }
             return View(person);
         }
@@ -135,7 +136,7 @@ namespace ThePeopleSearchApplication.Controllers
             Person person = db.Persons.Find(id);
             db.Persons.Remove(person);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("../Home/Index");
         }
 
         protected override void Dispose(bool disposing)

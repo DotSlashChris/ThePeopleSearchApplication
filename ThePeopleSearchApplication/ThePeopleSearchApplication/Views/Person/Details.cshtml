@@ -4,55 +4,42 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.FullName)</h2>
 
 <div>
-    <h4>Person</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PictureURL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PictureURL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Interests)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Interests)
-        </dd>
-
-    </dl>
+    <h4>Details</h4>
+    
+	<table class="table">
+		<tr>
+			<td>
+				@if (string.IsNullOrEmpty(Model.PictureURL))
+				{
+					<img src="~/Content/Images/PictureUnavailable.jpg" width="200" alt="Profile Picture" />
+				}
+				else
+				{
+					<img src="@Html.DisplayFor(model => model.PictureURL)" width="200" alt="Profile Picture" />
+				}
+			</td>
+			<td>
+				<strong>@Html.DisplayNameFor(model => model.Address)</strong><br />
+				<span style="white-space: pre-line">@Html.DisplayFor(model => model.Address.FormattedAddress)</span><br />
+				<strong>@Html.DisplayNameFor(model => model.Interests)</strong><br />
+				@if (string.IsNullOrEmpty(Model.Interests))
+				{
+					<text>None.</text>
+				}
+				else
+				{
+					@Html.DisplayFor(model => model.Interests)<text>.</text>
+				}
+				<br /><br />
+			</td>
+		</tr>
+	</table>
+	<hr />
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PersonID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit Person", "Edit", new { id = Model.PersonID }) |
+    @Html.ActionLink("Start Over", "../Home/Index")
 </p>
