@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using ThePeopleSearchApplication.DataAccessLayer;
 using ThePeopleSearchApplication.Models;
 
@@ -14,28 +15,32 @@ namespace ThePeopleSearchApplication.Controllers
     public class PersonController : Controller
     {
         private PeopleSearchContext db = new PeopleSearchContext();
+		class JsonRequest { public string keyword { get; set; }public bool simulateSlow { get; set; } } // Could just use var but I like strongly typed objects.
 
-		public PartialViewResult PersonSearch(string keyword, bool simulateSlow = false)
+		public PartialViewResult PersonSearch(string json)
 		{
+			JavaScriptSerializer jsonDecoder = new JavaScriptSerializer();
+			JsonRequest jsonRequest = jsonDecoder.Deserialize<JsonRequest>(json);
+
 			// Simulate a slow search.
-			if (simulateSlow == true)
+			if (jsonRequest.simulateSlow == true)
 			{
 				System.Threading.Thread.Sleep(5000); // Sleep for 5 seconds.
 			}
 
 			// Retrieve results from database if there is valid input. Otherwise just return an empty result set.
 			List<Person> model = new List<Person>();
-			if (keyword != string.Empty && keyword != "__keywordInput__")
+			if (!string.IsNullOrEmpty(jsonRequest.keyword))
 			{
 				model = new List<Person>();
-				var linqQuery = db.Persons.Where(p => p.FirstName.Contains(keyword) || p.LastName.Contains(keyword));
+				var linqQuery = db.Persons.Where(p => p.FirstName.Contains(jsonRequest.keyword) || p.LastName.Contains(jsonRequest.keyword));
 				model = linqQuery.ToList();
-
-				PartialViewResult result = PartialView(viewName: "PersonResultsPartialView", model: model);
 			}
 
-			// Return results.
-			return PartialView(viewName: "PersonResultsPartialView", model: model);
+			// Return results as JSON
+			JavaScriptSerializer jsonWriter = new JavaScriptSerializer();
+			string modelJson = jsonWriter.Serialize(model);
+            return PartialView(viewName: "PersonResultsPartialView", model: modelJson);
 		}
 
 		// GET: Person

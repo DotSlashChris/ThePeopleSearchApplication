@@ -12,17 +12,29 @@
 	function setKeywordInput() {
 		$('#NormalSearchButton').attr('href', function () {
 			var href = String(this.href);
-			var startIndex = href.indexOf('?keyword=') + 9;
-			var endIndex = href.indexOf('&');
-			href = href.slice(0, startIndex) + $('#Keyword').val().trim() + href.slice(endIndex);
-			return this.href = href;
+			// Convert query string to JSON
+			var jsonRequest = { keyword: $('#Keyword').val().trim(), simulateSlow: false };
+			startIndex = href.indexOf('?') + 1;
+			var queryString = JSON.stringify(jsonRequest);
+			if (startIndex > -1) {
+				return this.href = href.slice(0, startIndex) + "json=" + queryString;
+			}
+			else {
+				return this.href = href;
+			}
 		});
 		$('#SlowSearchButton').attr('href', function () {
 			var href = String(this.href);
-			var startIndex = href.indexOf('?keyword=') + 9;
-			var endIndex = href.indexOf('&');
-			href = href.slice(0, startIndex) + $('#Keyword').val().trim() + href.slice(endIndex);
-			return this.href = href;
+			// Convert query string to JSON
+			var jsonRequest = { keyword: $('#Keyword').val().trim(), simulateSlow: true };
+			startIndex = href.indexOf('?') + 1;
+			var queryString = JSON.stringify(jsonRequest);
+			if (startIndex > -1) {
+				return this.href = href.slice(0, startIndex) + "json=" + queryString;
+			}
+			else {
+				return this.href = href;
+			}
 		});
 	}
 
@@ -45,13 +57,14 @@
 					linkText: "Search »",
 					actionName: "PersonSearch",
 					controllerName: "Person",
-					routeValues: new { keyword = "__keywordInput__", simulateSlow = false },
+					routeValues: new { json = "__jsonRequest__" },
 					ajaxOptions: new AjaxOptions
 					{
 						OnBegin = "clearResults",
 						LoadingElementId = "LoadingDiv",
 						UpdateTargetId = "SearchResults",
-						InsertionMode = InsertionMode.Replace
+						InsertionMode = InsertionMode.Replace,
+						HttpMethod = "POST"
 					},
 					htmlAttributes: new { @class = "btn btn-default", id = "NormalSearchButton" })
 			</a></p>
@@ -64,7 +77,7 @@
 					linkText: "Search »",
 					actionName: "PersonSearch",
 					controllerName: "Person",
-					routeValues: new { keyword = "__keywordInput__", simulateSlow = true },
+					routeValues: new { json = "__jsonRequest__" },
 					ajaxOptions: new AjaxOptions
 					{
 						OnBegin = "clearResults",

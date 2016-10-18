@@ -111,7 +111,7 @@ namespace ThePeopleSearchApplication.DataAccessLayer
 						Country = "US"
 					},
 					PictureURL = "https://media.licdn.com/media/AAEAAQAAAAAAAAT0AAAAJDk5NDhiYTMzLTZhOTMtNDE4ZC04NjI1LWUxNmEwNDE5MTc0Nw.jpg",
-					Interests = "Health Catalyst, Software, Technology, Best People, Recruiting, Getting Chris Johnston On Board",
+					Interests = "Health Catalyst, Software, Technology, Best People, Recruiting, Getting Chris Johnston on board",
 					BirthDate = "1995-01-01",
 			}
 			};
