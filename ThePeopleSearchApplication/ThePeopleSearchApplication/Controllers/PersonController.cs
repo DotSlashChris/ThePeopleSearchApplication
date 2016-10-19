@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using ThePeopleSearchApplication.Common;
 using ThePeopleSearchApplication.DataAccessLayer;
 using ThePeopleSearchApplication.Models;
 
@@ -15,7 +16,6 @@ namespace ThePeopleSearchApplication.Controllers
     public class PersonController : Controller
     {
         private PeopleSearchContext db = new PeopleSearchContext();
-		class JsonRequest { public string keyword { get; set; }public bool simulateSlow { get; set; } } // Could just use var but I like strongly typed objects.
 
 		public PartialViewResult PersonSearch(string json)
 		{
@@ -43,11 +43,11 @@ namespace ThePeopleSearchApplication.Controllers
             return PartialView(viewName: "PersonResultsPartialView", model: modelJson);
 		}
 
-		// GET: Person
-		public ActionResult Index()
-        {
-            return View(db.Persons.ToList());
-        }
+		// Direct call to get a person from the database without changing view state
+		public Person GetPerson(int personID)
+		{
+			return db.Persons.Find(personID);
+		}
 
         // GET: Person/Details/5
         public ActionResult Details(int? id)

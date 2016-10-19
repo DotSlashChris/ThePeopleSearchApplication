@@ -1,5 +1,10 @@
 ﻿@* Response is JSON encoded *@
 @model string 
+
+@{
+	ViewBag.Title = "Person Search Results";
+}
+
 @{ var personList = Json.Decode<List<ThePeopleSearchApplication.Models.Person>>(Model); }
 @if (personList != null && personList.Count() > 0)
 {

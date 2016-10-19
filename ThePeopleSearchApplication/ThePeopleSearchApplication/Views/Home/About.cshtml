@@ -17,16 +17,18 @@
 	</ul>
 	Notes:
 	<ul>
+		<li>DB Connection string assumes existance of "(localdb)\MSSQLLocalDB\"</li>
 		<li>Requirements were for data seeding or entering data so I did both.</li>
-		<li>Entity framework was really fun to work with so I exposed all CRUD functionality.</li>
-		<li>Did not expand on required person details as that would just be busy work.</li>
-		<li>I added the person's address to a separate DB table for a demonsrtation.</li>
+		<li>Entity Framework was really fun to work with so I exposed all CRUD functionality.</li>
+		<li>I did not add additional person properties as that would just be busy work.</li>
+		<li>I added the person's address to a separate DB table for demonstration.</li>
 		<li>To meet the requirement I only used JSON for the request and response on the main search page.</li>
+		<li>Unit tests are order dependent and can all be executed using the FullOrderdedTest</li>
 	</ul>
-	Thoughts on Ehancements:
+	Thoughts on Enhancements:
 	<ul>
 		<li>More modular solution if this were going to grow to enterprise size. (Client/server project separation etc..)</li>
-		<li>UI layout could be improved with design team.</li>
+		<li>UI layout could be improved with design team or more time to play around.</li>
 		<li>Add caching.</li>
 	</ul>
 </p>

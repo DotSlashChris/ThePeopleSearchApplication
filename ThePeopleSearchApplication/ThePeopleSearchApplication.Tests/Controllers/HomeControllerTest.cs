@@ -13,7 +13,7 @@ namespace ThePeopleSearchApplication.Tests.Controllers
 	public class HomeControllerTest
 	{
 		[TestMethod]
-		public void Index()
+		public void HomeIndex()
 		{
 			// Arrange
 			HomeController controller = new HomeController();
@@ -23,19 +23,23 @@ namespace ThePeopleSearchApplication.Tests.Controllers
 
 			// Assert
 			Assert.IsNotNull(result);
+			Assert.IsInstanceOfType(result, typeof(ViewResult));
+			Assert.AreEqual("Index", (result as ViewResult).ViewName);
 		}
 
 		[TestMethod]
-		public void About()
+		public void HomeAbout()
 		{
 			// Arrange
 			HomeController controller = new HomeController();
 
 			// Act
-			ViewResult result = controller.About() as ViewResult;
+			ActionResult result = controller.About();
 
 			// Assert
-			Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+			Assert.IsNotNull(result);
+			Assert.IsInstanceOfType(result, typeof(ViewResult));
+			Assert.AreEqual("About", (result as ViewResult).ViewName);
 		}
 	}
 }

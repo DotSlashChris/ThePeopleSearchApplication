@@ -23,7 +23,15 @@
 			</td>
 			<td>
 				<strong>@Html.DisplayNameFor(model => model.Address)</strong><br />
-				<span style="white-space: pre-line">@Html.DisplayFor(model => model.Address.FormattedAddress)</span><br />
+				@if (Model.Address == null)
+				{
+					<text>None.</text>
+				}
+				else
+				{
+					<span style="white-space: pre-line">@Html.DisplayFor(model => model.Address.FormattedAddress)</span>
+				}
+				<br /><br />
 				<strong>@Html.DisplayNameFor(model => model.Interests)</strong><br />
 				@if (string.IsNullOrEmpty(Model.Interests))
 				{

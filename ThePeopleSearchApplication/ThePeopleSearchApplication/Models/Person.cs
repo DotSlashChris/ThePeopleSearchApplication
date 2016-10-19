@@ -73,7 +73,7 @@ namespace ThePeopleSearchApplication.Models
 
 		private string toAgeString()
 		{
-			string ageString = "Unknown";
+			string ageString = "Unknown.";
 			DateTime birthDate;
             DateTime.TryParse(this.BirthDate, out birthDate);
 			if (birthDate != DateTime.MinValue)
