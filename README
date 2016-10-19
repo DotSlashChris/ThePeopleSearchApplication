@@ -1,4 +1,5 @@
 Only prerequisite is that a SQL database server exists here: "(localdb)MSSQLLocalDB".
   Full connection string: "Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=ThePeopleSearchApplication;Integrated Security=SSPI;"
+  If necessary, update this connection string here: .\ThePeopleSearchApplication\Web.config line 12.
 The database will be built upon first access using Entity Framework.
-Unit tests must be ran sequentially using "FullORderedTest".
+Unit tests must be ran sequentially using "FullOrderedTest".
