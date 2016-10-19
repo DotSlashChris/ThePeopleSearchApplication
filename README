@@ -1,0 +1,4 @@
+Only prerequisite is that a SQL database server exists here: "(localdb)MSSQLLocalDB".
+  Full connection string: "Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=ThePeopleSearchApplication;Integrated Security=SSPI;"
+The database will be built upon first access using Entity Framework.
+Unit tests must be ran sequentially using "FullORderedTest".
